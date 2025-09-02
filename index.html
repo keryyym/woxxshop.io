@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://public-frontend-cos.metadl.com/mgx/img/favicon.png" type="image/png">
+    <title>WOX Shop - Магазин Аккаунтов</title>
+    <link rel="stylesheet" href="./style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-shopping-bag"></i>
+                    </div>
+                    <div class="logo-text">
+                        <h1>WOX SHOP</h1>
+                        <span>Магазин Аккаунтов</span>
+                    </div>
+                </div>
+                
+                <nav class="nav-links">
+                    <a href="https://t.me/wox_reviews" target="_blank" class="nav-btn">
+                        <i class="fab fa-telegram"></i> 
+                        <span>Отзывы</span>
+                    </a>
+                    <a href="https://t.me/wox_shop_bot" target="_blank" class="nav-btn">
+                        <i class="fab fa-telegram"></i> 
+                        <span>Бот</span>
+                    </a>
+                    <a href="https://t.me/wox_shop_news" target="_blank" class="nav-btn">
+                        <i class="fab fa-telegram"></i> 
+                        <span>Новости</span>
+                    </a>
+                </nav>
+
+                <div class="header-actions">
+                    <button class="theme-toggle" id="themeToggle">
+                        <i class="fas fa-palette"></i>
+                    </button>
+                    
+                    <div class="currency-selector">
+                        <select id="currencySelect">
+                            <option value="usd">USD $</option>
+                            <option value="rub">RUB ₽</option>
+                            <option value="ton">TON</option>
+                            <option value="stars">Stars ⭐</option>
+                        </select>
+                    </div>
+
+                    <button class="cart-btn" id="cartBtn">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </button>
+
+                    <button class="auth-btn" id="authBtn">
+                        <i class="fas fa-user"></i>
+                        <span>Войти</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2>Лучшие Аккаунты по Низким Ценам</h2>
+                <p>Качественные аккаунты с гарантией. Быстрая доставка и надежная поддержка.</p>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">100+</span>
+                        <span class="stat-label">Довольных клиентов</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">24/7</span>
+                        <span class="stat-label">Поддержка</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">100%</span>
+                        <span class="stat-label">Гарантия</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Theme Selector -->
+    <div class="theme-selector" id="themeSelector">
+        <div class="theme-options">
+            <button class="theme-option" data-theme="purple" title="Фиолетовая тема">
+                <div class="theme-preview purple-theme"></div>
+            </button>
+            <button class="theme-option" data-theme="blue" title="Синяя тема">
+                <div class="theme-preview blue-theme"></div>
+            </button>
+            <button class="theme-option" data-theme="green" title="Зеленая тема">
+                <div class="theme-preview green-theme"></div>
+            </button>
+            <button class="theme-option" data-theme="orange" title="Оранжевая тема">
+                <div class="theme-preview orange-theme"></div>
+            </button>
+            <button class="theme-option" data-theme="dark" title="Темная тема">
+                <div class="theme-preview dark-theme"></div>
+            </button>
+        </div>
+    </div>
+
+    <!-- Catalog -->
+    <section class="catalog" id="catalog">
+        <div class="container">
+            <h2 class="section-title">Каталог Товаров</h2>
+            <div class="products-grid" id="productsGrid">
+                <!-- Products will be generated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Modal -->
+    <div class="modal" id="cartModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Корзина</h3>
+                <button class="modal-close" id="cartModalClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="cart-items" id="cartItems">
+                    <!-- Cart items will be generated by JavaScript -->
+                </div>
+                <div class="cart-total">
+                    <div class="total-row">
+                        <span>Итого:</span>
+                        <span id="cartTotal">0</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="clearCart">Очистить корзину</button>
+                <button class="btn btn-primary" id="checkoutBtn">Оформить заказ</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Auth Modal -->
+    <div class="modal" id="authModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="authModalTitle">Вход</h3>
+                <button class="modal-close" id="authModalClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="authForm">
+                    <div class="form-group">
+                        <label for="username">Имя пользователя:</label>
+                        <input type="text" id="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group" id="passwordGroup">
+                        <label for="password">Пароль:</label>
+                        <input type="password" id="password" required>
+                    </div>
+                    <div class="form-group" id="confirmPasswordGroup" style="display: none;">
+                        <label for="confirmPassword">Подтвердите пароль:</label>
+                        <input type="password" id="confirmPassword">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="switchAuthMode">Регистрация</button>
+                <button type="submit" form="authForm" class="btn btn-primary" id="authSubmit">Войти</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>WOX SHOP</h4>
+                    <p>Надежный магазин аккаунтов с гарантией качества</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Связь</h4>
+                    <div class="footer-links">
+                        <a href="https://t.me/wox_reviews" target="_blank">
+                            <i class="fab fa-telegram"></i> Отзывы
+                        </a>
+                        <a href="https://t.me/wox_shop_bot" target="_blank">
+                            <i class="fab fa-telegram"></i> Бот для покупок
+                        </a>
+                        <a href="https://t.me/wox_shop_news" target="_blank">
+                            <i class="fab fa-telegram"></i> Новости
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Информация</h4>
+                    <p>Все товары с гарантией<br>
+                    Быстрая доставка<br>
+                    Поддержка 24/7</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 WOX SHOP. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="./script.js"></script>
+</body>
+
+</html>
